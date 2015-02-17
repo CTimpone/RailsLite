@@ -12,6 +12,7 @@ module Phase5
     def initialize(req, route_params = {})
       @params = route_params
       parse_www_encoded_form(req.query_string)
+      parse_www_encoded_form(req.body)
     end
 
     def [](key)
@@ -41,7 +42,7 @@ module Phase5
         parsed += [val]
         parsed.flatten
         h = parsed.reverse.inject {|a, n| {n => a}}
-        @params = @params.merge(h)
+        @params = h.deep_merge(@params)
       end unless queries.empty?
     end
 
