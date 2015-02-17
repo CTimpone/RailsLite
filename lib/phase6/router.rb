@@ -20,7 +20,16 @@ module Phase6
     # use pattern to pull out route params (save for later?)
     # instantiate controller and call controller action
     def run(req, res)
-      controller = controller_class.new(req, res)
+      regex = Regexp.new(pattern.to_s)
+      match_data = regex.match(req.path)
+      params = {}
+      if match_data
+        (0...match_data.length - 1).each do |idx|
+          params[match_data.names[idx]] = (match_data.captures[idx])
+        end
+      else
+      end
+      controller = controller_class.new(req, res, params)
       controller.invoke_action(action_name)
     end
   end

@@ -8,8 +8,6 @@ module Phase6
 
       unless already_built_response?
         render(name)
-      else
-        raise "Already built response."
       end
 
       @already_built_response = true

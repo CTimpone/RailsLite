@@ -22,6 +22,7 @@ $statuses = [
 class StatusesController < Phase6::ControllerBase
   def index
     statuses = $statuses.select do |s|
+      p params
       s[:cat_id] == Integer(params[:cat_id])
     end
 
